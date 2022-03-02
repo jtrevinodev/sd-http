@@ -11,7 +11,7 @@ parser.add_argument('-n','--hostname', help='Hostname', required=True)
 parser.add_argument('-p','--port', help='Port number', required=True)
 args = vars(parser.parse_args())
 
-BUFFER_SIZE = 40*1024*1024
+BUFFER_SIZE = 4096 #40*1024*1024
 
 def main():
     init_storage()
@@ -39,12 +39,33 @@ def main():
         # Establish connection with client.
         c, addr = s.accept()	
         print('Got connection from', addr )
+        
+        bbuffer = b''
 
-        request = c.recv(BUFFER_SIZE)
+        while True:
+            # read 1024 bytes from the socket (receive)
+            bytes_read = c.recv(BUFFER_SIZE)
+
+            # write to the file the bytes we just received
+            bbuffer += bytes_read
+
+            
+            if len(bytes_read) < BUFFER_SIZE:
+                # nothing is received
+                # file transmitting is done
+                break
+
+            
+
+        #request = c.recv(BUFFER_SIZE)
 
         #print('Data recieved: ', request)
 
-        response = read_request(request)
+        #request = bbuffer.decode()
+
+        #print(request)
+
+        response = read_request(bbuffer)
 
         # Send response to the client
         c.send(response.encode())
@@ -76,18 +97,18 @@ def read_request(request):
 
         # Read until final byte
         while byte:
-            byte_decoded = byte.decode()
+            byte_decoded = byte.decode() #byte.decode()
 
             # Read METHOD
             if not method and byte_decoded == ' ':
                 end_byte = byte_cnt
-                method = request[init_byte:end_byte].decode()
+                method = request[init_byte:end_byte].decode()  #.decode()
             
             # Read URI
             if method and not uri and byte_decoded == '\n':
                 init_byte = end_byte + 1
                 end_byte = byte_cnt
-                uri = request[init_byte:end_byte].decode()
+                uri = request[init_byte:end_byte].decode() #.decode()
             
             if method == 'PUT':
                 # Read CONTENT-LENGTH
@@ -97,7 +118,7 @@ def read_request(request):
                 
                 if method and uri and not content_length and content_flag and byte_decoded == '\n':
                     end_byte = byte_cnt
-                    content_length = int(request[init_byte:end_byte].decode())
+                    content_length = int(request[init_byte:end_byte].decode()) 
             
             elif method == 'GET':
                 content_length = 1
@@ -118,12 +139,22 @@ def read_request(request):
         # Get body content using content_length
         content_length = content_length
         end_byte = init_byte + content_length
-        body = request[init_byte:end_byte]
+        #body = request[init_byte:end_byte]
+        body = request[init_byte:len(request)]
 
         print('METHOD:', method)
         print('URI:', uri)
-        print('Content-length:',content_length)
-        print('Body:',body)
+        print('Content-length:', content_length)
+        #print('Body:',body.decode('ascii',errors='ignore'))
+
+        #print('Body:',body.decode())
+
+        #dbody = body.decode('ascii',errors='ignore') #body.decode()
+
+        #strbin = body.encode('ascii',errors='ignore') #dbody.encode(errors='ignore') #dbody.encode('ascii', errors='ignore')
+
+        #print(dbody)
+        
 
         
         uri_elements = uri.split('/')
@@ -145,6 +176,7 @@ def read_request(request):
             # Write file into directory
             with open(file_path, 'wb') as fout:
                 fout.write(body)
+
 
             status = '200 OK'
             response = "{STATUS}\n{BODY}".format(STATUS=status,BODY='')

@@ -5,8 +5,10 @@ import shutil
 import uuid
 import random
 import csv
+import io
 from timeit import default_timer as timer
-
+import argparse
+import hashlib
 
 dir_paths = []
 file_paths = []
@@ -15,10 +17,18 @@ client_dir = 'client_data/'
 
 server_list = []
 
-BALANCER_MODE = 'RANDOM'
+
 round_cnt = 0
 
-BUFFER_SIZE = 40*1024*1024
+#BUFFER_SIZE = 40*1024*1024
+BUFFER_SIZE = 4096 #40*1024*1024*1024
+
+# Set arguments
+parser = argparse.ArgumentParser(description='Socket client')
+parser.add_argument('-m','--bmode', help='Balancer mode: ROUND_ROBIN, HASH, RANDOM', required=True)
+args = vars(parser.parse_args())
+
+BALANCER_MODE = args['bmode']
 
 def main():
     # init
@@ -40,7 +50,7 @@ def main():
     for g in groups:
         print('\tGroup: ', g)
         avg_upload_time = upload_files(g)
-        print('\tAverage upload time: ', avg_upload_time)
+        print('\tAverage upload time: ', avg_upload_time*1000.0)
         print('')
 
     export_filepaths()
@@ -51,14 +61,14 @@ def main():
     for g in groups:
         print('\tGroup: ', g)
         avg_download_time = download_files(g)
-        print('\tAverage download time: ', avg_download_time)
+        print('\tAverage download time: ', avg_download_time*1000.0)
         print('')
     
 
 
 
 
-def load_balancer():
+def load_balancer(file_route):
     global round_cnt
 
     server = 0
@@ -71,7 +81,11 @@ def load_balancer():
         round_cnt += 1
         
     elif BALANCER_MODE == 'HASH':
-        pass
+        result = hashlib.md5(bytes(file_route,encoding ="utf-8"))
+        string_digest = str(result.digest())
+        integer_digest = sum(ord(ch) for ch in string_digest)
+        server = integer_digest % 3
+        
     elif BALANCER_MODE == 'RANDOM':
         server = random.randint(0, len(server_list)-1)
     
@@ -93,23 +107,27 @@ def upload_files(group_name):
             # Connect to Server
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 # Call load balancer
-                SERVER,HOST,PORT = load_balancer()
+                SERVER,HOST,PORT = load_balancer(fpath[1])
                 # assign server
                 fpath[2] = SERVER
 
                 s.connect((HOST, PORT))
 
-                f = open(fpath[1], 'rb')
+                f = open(fpath[1], 'rb') #io.open(fpath[1], mode="rb") 
+                
                 binary_data = f.read()
                 uri = fpath[1].replace(client_dir,'')
                 # get the cursor positioned at end
                 f.seek(0, os.SEEK_END)
                 content_length = f.tell()
 
-                request = "{METHOD} {URI}\nContent-length: {CONTENT_LENGTH}\n{BODY}".format(METHOD='PUT',URI=uri,CONTENT_LENGTH=content_length,BODY=binary_data)
+                strbin = binary_data.decode(errors='ignore')
+
+                request = "{METHOD} {URI}\nContent-length: {CONTENT_LENGTH}\n{BODY}".format(METHOD='PUT',URI=uri,CONTENT_LENGTH=content_length,BODY=strbin)
                 start = timer()
                 try:
                     s.sendall(request.encode())
+
                 except socket.error:
                     # A socket error
                     pass
@@ -117,9 +135,6 @@ def upload_files(group_name):
                     if e.errno == errno.EPIPE:
                         # EPIPE error
                         response = s.recv(BUFFER_SIZE)
-                    
-                        #print('Response upload2', response.decode())
-                        #print('')
                     else:
                         # Other error
                         pass
@@ -127,26 +142,22 @@ def upload_files(group_name):
                 end = timer()
                 # count time
                 acum_time += end - start
-                
+
                 response = s.recv(BUFFER_SIZE)
                 
-                #print('Response upload', response.decode())
-                #print('')
+                print('Response upload', response.decode())
+                print('')
             
             nfiles += 1
 
     
     # Calculate average upload time
-    avg_upload_time = acum_time/nfiles
+    if nfiles > 0:
+        avg_upload_time = acum_time/nfiles
 
     return avg_upload_time
     
-
-
-                
-            
-            
-            
+ 
         
 
 def download_files(group_name):
@@ -171,18 +182,33 @@ def download_files(group_name):
                 request = "{METHOD} {URI}\n{BODY}".format(METHOD='GET',URI=uri,BODY='')
                 s.sendall(request.encode())
                 start = timer()
-                response = s.recv(BUFFER_SIZE)
+
+                bbuffer = b''
+                while True:
+                    bytes_response = s.recv(BUFFER_SIZE)
+                    # write to the file the bytes we just received
+                    bbuffer += bytes_response
+
+                    if len(bytes_response) < BUFFER_SIZE:
+                        # nothing is received
+                        # file transmitting is done
+                        break
+                
+                
                 end = timer()
                 # count time
                 acum_time += end - start
+
+                response = bbuffer
 
                 #print('Response download', response.decode())
                 #print('')
             
             nfiles += 1
-    
-    # Calculate average download time
-    avg_download_time = acum_time/nfiles
+
+    if nfiles > 0:    
+        # Calculate average download time
+        avg_download_time = acum_time/nfiles
 
     return avg_download_time
         
@@ -210,9 +236,12 @@ def generate_files(group_name,num_files, min_size, max_size):
         file_path = os.path.join(dir_path, filename)
         size = random.randint(min_size, max_size)
 
-        with open(file_path, 'wb') as fout:
-            # Generate random binary string
-            fout.write(os.urandom(size))
+        # with open(file_path, 'wb') as fout:
+        #     # Generate random binary string
+        #     fout.write(os.urandom(size))
+
+        with io.open(file_path,'w',encoding='utf8') as f:
+            f.write('0' * size)
 
         file_paths.append([group_name,file_path,None])
 
@@ -238,7 +267,7 @@ def export_filepaths():
 
     for fpath in file_paths:
         # write a row to the csv file
-        writer.writerow([fpath[0],fpath[1],str(fpath[1])])
+        writer.writerow([fpath[0],fpath[1],str(fpath[2])])
     
     # close the file
     f.close()

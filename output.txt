@@ -1,21 +1,894 @@
 ----- SUBIDA DE ARCHIVOS -----
 	Group:  G1
-	Average upload time:  7.180673469387668e-06
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+	Average upload time:  0.006160648351648486
 
 	Group:  G2
-	Average upload time:  0.0012998799999999996
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+	Average upload time:  0.2327512600000016
 
 	Group:  G3
-	Average upload time:  0.005548197500000053
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+Response upload 200 OK
+
+
+	Average upload time:  217.7835099799998
 
 
 ----- DESCARGA DE ARCHIVOS -----
 	Group:  G1
-	Average download time:  0.00042207823469384747
+	Average download time:  0.20021883516498526
 
 	Group:  G2
-	Average download time:  0.000700518329999964
+	Average download time:  3.748754990000265
 
 	Group:  G3
-	Average download time:  0.0007656000600000379
+	Average download time:  371.91306245000027
 
