@@ -15,4 +15,4 @@
 
 2. Correr cliente en terminal.
     - Cliente y balanceador:
-        python3 client.py -m ROUND_ROBIN > output.txt
+        python3 client.py -m 'ROUND_ROBIN' > output.txt
