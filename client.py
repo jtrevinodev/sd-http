@@ -5,6 +5,8 @@ import shutil
 import uuid
 import random
 import csv
+from timeit import default_timer as timer
+
 
 dir_paths = []
 file_paths = []
@@ -32,11 +34,25 @@ def main():
     else:
         import_filepaths()
 
+    groups = ['G1','G2', 'G3']
     print('----- SUBIDA DE ARCHIVOS -----')
-    upload_files()
+    
+    for g in groups:
+        print('\tGroup: ', g)
+        avg_upload_time = upload_files(g)
+        print('\tAverage upload time: ', avg_upload_time)
+        print('')
+
+    export_filepaths()
+
 
     print('\n----- DESCARGA DE ARCHIVOS -----')
-    download_files()
+    
+    for g in groups:
+        print('\tGroup: ', g)
+        avg_download_time = download_files(g)
+        print('\tAverage download time: ', avg_download_time)
+        print('')
     
 
 
@@ -59,7 +75,7 @@ def load_balancer():
     elif BALANCER_MODE == 'RANDOM':
         server = random.randint(0, len(server_list)-1)
     
-    print('Server: ', server)
+    #print('Server: ', server)
 
     #return hosname and port of selected server
     return server,server_list[server]['host'], int(server_list[server]['port'])
@@ -67,72 +83,108 @@ def load_balancer():
 
 
 
-def upload_files():
+def upload_files(group_name):
+    avg_upload_time = 0
+    nfiles = 0
+    acum_time = 0
     # Upload every single file
     for fpath in file_paths:
-        # Connect to Server
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            # Call load balancer
-            SERVER,HOST,PORT = load_balancer()
-            # assign server
-            fpath[1] = SERVER
+        if fpath[0] == group_name:
+            # Connect to Server
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                # Call load balancer
+                SERVER,HOST,PORT = load_balancer()
+                # assign server
+                fpath[2] = SERVER
 
-            s.connect((HOST, PORT))
+                s.connect((HOST, PORT))
 
-            f = open(fpath[0], 'rb')
-            binary_data = f.read()
-            uri = fpath[0].replace(client_dir,'')
-            # get the cursor positioned at end
-            f.seek(0, os.SEEK_END)
-            content_length = f.tell()
+                f = open(fpath[1], 'rb')
+                binary_data = f.read()
+                uri = fpath[1].replace(client_dir,'')
+                # get the cursor positioned at end
+                f.seek(0, os.SEEK_END)
+                content_length = f.tell()
 
-            request = "{METHOD} {URI}\nContent-length: {CONTENT_LENGTH}\n{BODY}".format(METHOD='PUT',URI=uri,CONTENT_LENGTH=content_length,BODY=binary_data)
-            try:
-                s.sendall(request.encode())
-            except socket.error:
-                # A socket error
-                pass
-            except IOError:
-                if e.errno == errno.EPIPE:
-                    # EPIPE error
-                    response = s.recv(BUFFER_SIZE)
-                
-                    print('Response upload2', response.decode())
-                    print('')
-                else:
-                    # Other error
+                request = "{METHOD} {URI}\nContent-length: {CONTENT_LENGTH}\n{BODY}".format(METHOD='PUT',URI=uri,CONTENT_LENGTH=content_length,BODY=binary_data)
+                start = timer()
+                try:
+                    s.sendall(request.encode())
+                except socket.error:
+                    # A socket error
                     pass
-            response = s.recv(BUFFER_SIZE)
+                except IOError:
+                    if e.errno == errno.EPIPE:
+                        # EPIPE error
+                        response = s.recv(BUFFER_SIZE)
+                    
+                        #print('Response upload2', response.decode())
+                        #print('')
+                    else:
+                        # Other error
+                        pass
+                
+                end = timer()
+                # count time
+                acum_time += end - start
+                
+                response = s.recv(BUFFER_SIZE)
+                
+                #print('Response upload', response.decode())
+                #print('')
             
-            print('Response upload', response.decode())
-            print('')
+            nfiles += 1
 
-    export_filepaths()
+    
+    # Calculate average upload time
+    avg_upload_time = acum_time/nfiles
+
+    return avg_upload_time
+    
+
+
                 
             
             
             
         
 
-def download_files():
+def download_files(group_name):
+    avg_download_time = 0
+    nfiles = 0
+    acum_time = 0
+
     # Download all files individually
     for fpath in file_paths:
-        # Connect to Server
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            SERVER = fpath[1]
-            HOST = server_list[SERVER]['host']
-            PORT = int(server_list[SERVER]['port'])
 
-            s.connect((HOST, PORT))
+        if fpath[0] == group_name:
+            # Connect to Server
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                SERVER = fpath[2]
+                HOST = server_list[SERVER]['host']
+                PORT = int(server_list[SERVER]['port'])
 
-            uri = fpath[0].replace(client_dir,'')
+                s.connect((HOST, PORT))
 
-            request = "{METHOD} {URI}\n{BODY}".format(METHOD='GET',URI=uri,BODY='')
-            s.sendall(request.encode())
-            response = s.recv(BUFFER_SIZE)
+                uri = fpath[1].replace(client_dir,'')
 
-            print('Response download', response.decode())
-            print('')
+                request = "{METHOD} {URI}\n{BODY}".format(METHOD='GET',URI=uri,BODY='')
+                s.sendall(request.encode())
+                start = timer()
+                response = s.recv(BUFFER_SIZE)
+                end = timer()
+                # count time
+                acum_time += end - start
+
+                #print('Response download', response.decode())
+                #print('')
+            
+            nfiles += 1
+    
+    # Calculate average download time
+    avg_download_time = acum_time/nfiles
+
+    return avg_download_time
         
 
     
@@ -162,7 +214,7 @@ def generate_files(group_name,num_files, min_size, max_size):
             # Generate random binary string
             fout.write(os.urandom(size))
 
-        file_paths.append([file_path,None])
+        file_paths.append([group_name,file_path,None])
 
 
 def import_filepaths():
@@ -175,7 +227,7 @@ def import_filepaths():
             if line_count == 0:
                 line_count += 1
             else:
-                file_paths.append([row[0],row[1]])
+                file_paths.append([row[0],row[1],row[2]])
     
 def export_filepaths():
     # open the file in the write mode
@@ -186,7 +238,7 @@ def export_filepaths():
 
     for fpath in file_paths:
         # write a row to the csv file
-        writer.writerow([fpath[0],str(fpath[1])])
+        writer.writerow([fpath[0],fpath[1],str(fpath[1])])
     
     # close the file
     f.close()
